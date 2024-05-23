@@ -7,38 +7,39 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
-  templateUrl: './login.component.html',
-  imports: [ReactiveFormsModule, CommonModule],
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './register.component.html',
+  imports: [ReactiveFormsModule],
+
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class RegisterComponent {
+  registerForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router
   ) {
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
       username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.apiService.login(this.loginForm.value).subscribe(
+    if (this.registerForm.valid) {
+      this.apiService.register(this.registerForm.value).subscribe(
         (data) => {
           localStorage.setItem('token', data.token);
           this.router.navigate(['/board']);
         },
         (error) => {
-          console.error('Login error', error);
+          console.error('Registration error', error);
         }
       );
     }

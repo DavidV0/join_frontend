@@ -1,0 +1,102 @@
+<!-- src/app/components/kanban-board/kanban-board.component.html -->
+<div class="kanban-board">
+  <div class="column">
+    <h2>To Do</h2>
+    <div *ngFor="let task of todos" class="task-card" (click)="openPopup(task)">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+    </div>
+  </div>
+  <div class="column">
+    <h2>In Progress</h2>
+    <div
+      *ngFor="let task of inProgress"
+      class="task-card"
+      (click)="openPopup(task)"
+    >
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+    </div>
+  </div>
+  <div class="column">
+    <h2>Done</h2>
+    <div *ngFor="let task of done" class="task-card" (click)="openPopup(task)">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Popup for Task Details -->
+<div class="popup" *ngIf="isPopupOpen">
+  <div class="popup-content">
+    <h2>Edit Task</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="saveChanges()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="due_date">Due Date</label>
+        <input
+          type="date"
+          id="due_date"
+          formControlName="due_date"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input
+          type="text"
+          id="category"
+          formControlName="category"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="prio">Priority</label>
+        <input
+          type="number"
+          id="prio"
+          formControlName="prio"
+          class="form-control"
+          min="1"
+          max="5"
+        />
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status" class="form-control">
+          <option value="todo">To Do</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="deleteTask(selectedTask!.id)"
+      >
+        Delete Task
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="closePopup()">
+        Close
+      </button>
+    </form>
+  </div>
+</div>

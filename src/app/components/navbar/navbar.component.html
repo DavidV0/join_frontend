@@ -7,12 +7,20 @@
   <div class="navbar-collapse" [class.show]="menuOpen">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/board" routerLinkActive="active"
+        <a
+          class="nav-link"
+          routerLink="/board"
+          routerLinkActive="active"
+          [class.disabled]="!isLoggedIn()"
           >Board</a
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/addTask" routerLinkActive="active"
+        <a
+          class="nav-link"
+          routerLink="/addTask"
+          routerLinkActive="active"
+          [class.disabled]="!isLoggedIn()"
           >Add Task</a
         >
       </li>
@@ -21,10 +29,14 @@
           class="nav-link"
           routerLink="/createContacts"
           routerLinkActive="active"
+          [class.disabled]="!this.isLoggedIn()"
           >Create Contact</a
         >
       </li>
       <li class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn()">
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Task } from '../interfaces/task';
 import { Contact } from '../interfaces/contact';
 import { Subtask } from '../interfaces/subtask';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,9 @@ import { Subtask } from '../interfaces/subtask';
 export class ApiService {
   private apiUrl = 'http://localhost:8000/api/';
   private usersUrl = 'http://localhost:8000/users/';
+  loggedInStatus = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getTodos(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}todos/`);
@@ -84,5 +86,14 @@ export class ApiService {
     password: string;
   }): Observable<any> {
     return this.http.post(`http://localhost:8000/users/register/`, data);
+  }
+
+  canActivate(): boolean {
+    if (this.loggedInStatus) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 }

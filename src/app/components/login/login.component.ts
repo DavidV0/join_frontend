@@ -35,6 +35,9 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe(
         (data) => {
           localStorage.setItem('token', data.token);
+          this.apiService.loggedInStatus = true;
+          console.log('you are logged in');
+
           this.router.navigate(['/board']);
         },
         (error) => {

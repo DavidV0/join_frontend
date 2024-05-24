@@ -42,6 +42,7 @@ export class KanbanBoardComponent implements OnInit {
     this.apiService.getTodos().subscribe((data) => {
       this.categorizeTasks(data);
     });
+    this.apiService.canActivate();
   }
 
   categorizeTasks(tasks: Task[]): void {

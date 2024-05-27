@@ -1,6 +1,6 @@
 export interface Subtask {
-  id: number;
-  description: string;
+  id?: number;
+  title: string;
+  parent_task?: number;
   state: boolean;
-  parent_task: number;
 }

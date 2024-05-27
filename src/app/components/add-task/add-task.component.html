@@ -55,6 +55,35 @@
         <option value="done">Done</option>
       </select>
     </div>
+    <div class="form-group">
+      <label for="assigned_to">Assigned Contacts</label>
+      <div
+        *ngFor="let contactId of taskForm.value.assigned_to_ids; let i = index"
+      >
+        <span>{{ getContactName(contactId) }}</span>
+        <button type="button" (click)="removeContact(i)">Remove</button>
+      </div>
+      <select (change)="addContact($event)">
+        <option
+          *ngFor="let contact of contacts"
+          [value]="contact.id"
+          [disabled]="taskForm.value.assigned_to_ids.includes(contact.id)"
+        >
+          {{ contact.first_name }} {{ contact.last_name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="subtasks">Subtasks</label>
+      <div *ngFor="let subtask of taskForm.value.subtasks_data; let i = index">
+        <span>{{ subtask.description }}</span>
+        <button type="button" (click)="removeSubtask(i)">Remove</button>
+      </div>
+      <input type="text" #subtaskInput placeholder="New Subtask" />
+      <button type="button" (click)="addSubtask(subtaskInput.value)">
+        Add Subtask
+      </button>
+    </div>
     <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
       Add Task
     </button>

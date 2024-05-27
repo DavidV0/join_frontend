@@ -27,9 +27,8 @@ export class ApiService {
   createTodo(todo: Task): Observable<Task> {
     return this.http.post<Task>(`${this.apiUrl}todos/`, todo);
   }
-
-  updateTodo(id: number, todo: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}todos/${id}/`, todo);
+  updateTodo(id: number, task: any): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}todos/${id}/`, task);
   }
 
   deleteTodo(id: number): Observable<void> {

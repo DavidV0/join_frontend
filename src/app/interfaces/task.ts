@@ -1,5 +1,5 @@
-import { Contact } from '../interfaces/contact';
 import { Subtask } from '../interfaces/subtask';
+import { Contact } from './contact';
 
 export interface Task {
   id: number;
@@ -9,6 +9,8 @@ export interface Task {
   category: string;
   prio: number;
   status: string;
-  assigned_to: Contact[];
+  assigned_to_ids: number[];
+  subtasks_data: Subtask[];
+  assigned_to: Contact[]; // Update to reflect the actual structure
   subtasks: Subtask[];
 }

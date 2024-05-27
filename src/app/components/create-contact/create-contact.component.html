@@ -54,4 +54,12 @@
       Create Contact
     </button>
   </form>
+
+  <!-- Success and Error Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
 </div>

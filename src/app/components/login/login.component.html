@@ -8,18 +8,19 @@
       <label for="password">Password</label>
       <input id="password" formControlName="password" type="password" />
     </div>
-
     <button type="submit" [disabled]="loginForm.invalid">Login</button>
   </form>
-  <div>
-    <h2>not a User yet?</h2>
-    <a routerLink="/register" routerLinkActive="active">register here!</a>
+
+  <div
+    *ngIf="feedbackMessage"
+    class="feedback"
+    [ngClass]="{ error: isError, success: !isError }"
+  >
+    {{ feedbackMessage }}
   </div>
 
   <div>
-    Ich glaube ihr habt den neusten stand vom code nicht übernommen bei mir
-    läuft alles? Ich habe den frontend teil bei euch schon abgeschlossen und
-    werde dieses projekt grundsätzlich nicht ins portfolio nehmen. und es hieß
-    das wir das frontend auch nicht hinzufügen müssen, hoffe um verständnis
+    <h2>Not a user yet?</h2>
+    <a routerLink="/register" routerLinkActive="active">Register here!</a>
   </div>
 </div>

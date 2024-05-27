@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  feedbackMessage: string | null = null;
+  isError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,11 +38,16 @@ export class LoginComponent {
         (data) => {
           localStorage.setItem('token', data.token);
           this.apiService.loggedInStatus = true;
-          console.log('you are logged in');
+          this.feedbackMessage = 'You are logged in';
+          this.isError = false;
 
-          this.router.navigate(['/board']);
+          setTimeout(() => {
+            this.router.navigate(['/board']);
+          }, 2000); // Redirect after 2 seconds
         },
         (error) => {
+          this.feedbackMessage = 'Something went wrong, try again';
+          this.isError = true;
           console.error('Login error', error);
         }
       );
